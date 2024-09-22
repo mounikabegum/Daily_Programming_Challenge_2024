@@ -1,0 +1,30 @@
+#day 14
+def count_substrings_with_k_distinct(s: str, k: int) -> int:
+    def count_at_most_k_distinct(s, k):
+        count = {}
+        left = 0
+        result = 0
+        
+        for right in range(len(s)):
+            count[s[right]] = count.get(s[right], 0) + 1
+            
+            while len(count) > k:
+                count[s[left]] -= 1
+                if count[s[left]] == 0:
+                    del count[s[left]]
+                left += 1
+            
+            result += right - left + 1
+            
+        return result
+    
+    if k == 0:
+        return 0
+    return count_at_most_k_distinct(s, k) - count_at_most_k_distinct(s, k - 1)
+
+# rtest case
+print(count_substrings_with_k_distinct("pqpqs", 2))  # Output: 7
+print(count_substrings_with_k_distinct("aabacbebebe", 3))  # Output: 10
+print(count_substrings_with_k_distinct("a", 1))  # Output: 1
+print(count_substrings_with_k_distinct("abc", 3))  # Output: 1
+print(count_substrings_with_k_distinct("abc", 2))  # Output: 2
