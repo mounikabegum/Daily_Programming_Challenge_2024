@@ -1,0 +1,16 @@
+#day 16
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+def lcm(N, M):
+    return (N * M) // gcd(N, M)
+
+
+N = int(input("Enter the first integer (N): "))
+M = int(input("Enter the second integer (M): "))
+
+
+result = lcm(N, M)
+print(f"The Least Common Multiple of {N} and {M} is: {result}")
